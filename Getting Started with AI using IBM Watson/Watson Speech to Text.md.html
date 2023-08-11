@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/Module%202/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab: Watson Speech to Text (10 min)</h1>
+    <h2>Exploring Watson Speech to Text</h2>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>Learn how to use you will use Watson Speech to Text to transcribe audio.</li>
+    </ul>
+    <p>IBM provides an online demo of Watson Speech to Text at:<a href="https://speech-to-text-demo.ng.bluemix.net/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01&#x26;cm_mc_uid=59963159489715526067556&#x26;cm_mc_sid_50200000=93080491558737820643&#x26;cm_mc_sid_52640000=17830021558737820661" target="_blank" rel="external">Watson Speech to Text</a>(or from the product page, click Demo).</p>
+    <p>The demo environment has several ways you can provide audio:</p>
+    <ul>
+      <li>
+        <p>Record Audio - uses your microphone to record audio.</p>
+      </li>
+      <li>
+        <p>Upload Audio File - allows you to upload an .mp3, .mpeg, .wav, .flac, or .opus format audio file.</p>
+      </li>
+      <li>
+        <p>Play a sample file.</p>
+      </li>
+    </ul>
+    <p>Use the following steps to explore the demo:</p>
+    <ol>
+      <li>
+        <p>Access the online demo here:<a href="https://speech-to-text-demo.ng.bluemix.net/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01&#x26;cm_mc_uid=59963159489715526067556&#x26;cm_mc_sid_50200000=93080491558737820643&#x26;cm_mc_sid_52640000=17830021558737820661" target="_blank" rel="external">Watson Speech to Text</a></p>
+      </li>
+      <li>
+        <p>Click <strong>Play Sample 1</strong>.</p>
+      </li>
+      <li>
+        <p>Observe as Watson Speech to Text transcribes the audio and detects multiple speakers.</p>
+      </li>
+      <li>
+        <p>Click <strong>Word Timings and Alternatives</strong>.</p>
+      </li>
+      <li>
+        <p>On the first line, hover over <strong>so2</strong></p>
+      </li>
+      <li>
+        <p>How many alternatives does Watson provide?</p>
+      </li>
+      <li>
+        <p>How confident is Watson that this is the word “so”?</p>
+      </li>
+      <li>
+        <p>In the fourth paragraph, hover over <strong>a2</strong></p>
+      </li>
+      <li>
+        <p>How confident is Watson that this is the word “a”?</p>
+      </li>
+      <li>
+        <p>What alternatives does Watson provide?</p>
+      </li>
+      <li>
+        <p>In the <strong>Keywords to spot</strong> box, read the suggested keywords.</p>
+      </li>
+      <li>
+        <p>In the transcribed text box, click <strong>Keywords (5/9)</strong>.</p>
+      </li>
+      <li>
+        <p>How many times was “artificial intelligence” spotted?</p>
+      </li>
+      <li>
+        <p>To add a keyword, in the <strong>Keywords to spot</strong> box, click before <strong>IBM</strong> and type <em>operability</em>, and then click <strong>Play Sample 1</strong>.</p>
+      </li>
+      <li>
+        <p>Did Watson spot the additional keyword?</p>
+      </li>
+    </ol>
+    <p>Optional (requires microphone)</p>
+    <ol>
+      <li>
+        <p>Click to clear the <strong>Detect multiple speakers</strong> check box.</p>
+      </li>
+      <li>
+        <p>In the <strong>Keywords to spot</strong> box, delete the existing keywords and add the following text: <em>moon, decade, rocket, easy, hard</em></p>
+      </li>
+      <li>
+        <p>Click <strong>Record Audio</strong>.</p>
+      </li>
+      <li>
+        <p>Record the following text: <em>We choose to go to the moon. We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard, because that goal will serve to organize and measure the best of our energies and skills, because that challenge is one that we are willing to accept, one we are unwilling to postpone, and one which we intend to win, and the others, too</em>.</p>
+      </li>
+      <li>
+        <p>Click <strong>Word Timings and Alternatives</strong>.</p>
+      </li>
+      <li>
+        <p>Does Watson suggest any alternatives for words?</p>
+      </li>
+      <li>
+        <p>What is Watson’s level of confidence for each alternative?</p>
+      </li>
+      <li>
+        <p>Click <strong>Keywords (x/5)</strong>.</p>
+      </li>
+      <li>
+        <p>Did Watson spot the keyword “rocket”?</p>
+      </li>
+      <li>
+        <p>Why not?</p>
+      </li>
+    </ol>
+    <p><a href="https://twitter.com/ravahuja?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">Follow Rav Ahuja</a></p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/ravahuja/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">Rav Ahuja</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Anamika</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

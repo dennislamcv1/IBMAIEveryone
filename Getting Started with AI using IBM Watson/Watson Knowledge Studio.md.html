@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/Module%202/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab: Watson Knowledge Studio (10 min)</h1>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>Learn how to use Watson Knowledge Studio to analyze three pieces of text, first with the default model, and then with the Knowledge Studio Custom Model.</li>
+      <li>Comparing the results for both models.</li>
+    </ul>
+    <h2>Exploring Watson Knowledge Studio</h2>
+    <p>IBM provides an online demo of Watson Knowledge Studio at: <a href="http://knowledge-studio-demo.ng.bluemix.net/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">Watson Knowledge Studio</a>(or from the product page, click View demo).</p>
+    <p>The demo environment provides two models for analysis:</p>
+    <ul>
+      <li>
+        <p>The Default Model, which is a bare-bones annotation model based on a superficial grammatical analysis.</p>
+      </li>
+      <li>
+        <p>A Knowledge Studio Custom Model, which is a sophisticated annotation model based on machine learning training in a specific domain.</p>
+      </li>
+    </ul>
+    <p>Use the following steps to explore the demo:</p>
+    <p><strong>Crash Report</strong></p>
+    <ol>
+      <li>
+        <p>Access the online demo here: <a href="http://knowledge-studio-demo.ng.bluemix.net/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">Watson Knowledge Studio</a></p>
+      </li>
+      <li>
+        <p>Under <strong>Text to be analyzed</strong>, click in the <strong>Crash Report</strong> text box to ensure that it is selected.</p>
+      </li>
+      <li>
+        <p>Under <strong>Model to be used</strong>, click <strong>Default Model</strong>.</p>
+      </li>
+      <li>
+        <p>In the <strong>Analysis result</strong>, find the items identified as <strong>Vehicle</strong>.</p>
+      </li>
+      <li>
+        <p>In the fourth paragraph, follow the lines from the vehicle references. What actions and objects do they link?</p>
+      </li>
+      <li>
+        <p>In the fourth paragraph, what is identified as a <strong>Person</strong>?</p>
+      </li>
+      <li>
+        <p>Under <strong>Model to be used</strong>, click <strong>Knowledge Studio Custom Model</strong>.</p>
+      </li>
+      <li>
+        <p>In the Analysis result, find the items identified as <strong>PART_OF_CAR</strong>. Note that some of the items identified as Vehicle by the Default Model are identified as PART_OF_CAR, along with many other items.</p>
+      </li>
+      <li>
+        <p>How is the item previously identified as <strong>Person</strong> now identified?</p>
+      </li>
+      <li>
+        <p>Which of the two models do you think is more accurate?</p>
+      </li>
+    </ol>
+    <p><strong>Medicine</strong></p>
+    <ol>
+      <li>
+        <p>On the Watson Knowledge Studio page, under <strong>Text to be analyzed</strong>, click in the <strong>Medicine</strong> text box to ensure that it is selected.</p>
+      </li>
+      <li>
+        <p>Under <strong>Model to be used</strong>, click <strong>Default Model</strong>.</p>
+      </li>
+      <li>
+        <p>In the <strong>Analysis result</strong>, find the two occurrences of the word <strong>morphine</strong>. Are both correctly identified?</p>
+      </li>
+      <li>
+        <p>Under <strong>Model to be used</strong>, click <strong>Knowledge Studio Custom Model</strong>.</p>
+      </li>
+      <li>
+        <p>In the <strong>Analysis result</strong>, find the items identified as <strong>MEDICINE</strong>. Are the two occurrences of the word morphine now correctly identified? What about other items identified as <strong>MEDICINE</strong>?</p>
+      </li>
+      <li>
+        <p>Follow the lines from each <strong>DISEASE</strong> label to the <strong>EFFECT</strong> label, and note the item each identifies. Has Watson Knowledge Studio identified the items which are adverse drug reactions?</p>
+      </li>
+      <li>
+        <p>Which of the two models do you think is more accurate for this piece of text?</p>
+      </li>
+    </ol>
+    <p><strong>Fantasy Football</strong></p>
+    <ol>
+      <li>
+        <p>On the Watson Knowledge Studio page, under <strong>Text to be analyzed</strong>, click in the <strong>Fantasy Football</strong> text box to ensure that it is selected.</p>
+      </li>
+      <li>
+        <p>Under <strong>Model to be used</strong>, click <strong>Default Model</strong>.</p>
+      </li>
+      <li>
+        <p>In the <strong>Analysis result</strong>, find the three items identified as <strong>Organisation</strong>.</p>
+      </li>
+      <li>
+        <p>How is <strong>Sammy Watkins</strong> identified?</p>
+      </li>
+      <li>
+        <p>Under <strong>Model to be used</strong>, click <strong>Knowledge Studio Custom Model</strong>.</p>
+      </li>
+      <li>
+        <p>In the <strong>Analysis result</strong>, find the items previously identified as <strong>Organisations</strong>.</p>
+      </li>
+      <li>
+        <p>How is <strong>Sammy Watkins</strong> identified? What is his relationship to <strong>Chiefs</strong>?</p>
+      </li>
+      <li>
+        <p>Which model provides more information?</p>
+      </li>
+    </ol>
+    <p>Given what you have learned, would you use the default model, or create your own custom model to suit your specific domain?</p>
+    <p><a href="https://twitter.com/ravahuja?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">Follow Rav Ahuja</a></p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/ravahuja/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">Rav Ahuja</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Anamika</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

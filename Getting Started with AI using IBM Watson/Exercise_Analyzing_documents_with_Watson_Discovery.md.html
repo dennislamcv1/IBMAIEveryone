@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/IDSNlogo.png" width="300">
+    <h2>Exercise: Analyzing documents with Watson Discovery!</h2>
+    <p>After completing this lab, you will be able to:</p>
+    <ul>
+      <li>Create a Watson Discovery service instance.</li>
+      <li>Utilize Watson Discovery to extract valuable information from documents.</li>
+    </ul>
+    <p>When handling an enormous amount of text documents, Watson Discovery is a valuable tool to optimize your work flow by applying Natural Language Processing (NLP) algorithm to extract, valuable information, sentiment, concepts, semantic roles from your collection of documents.</p>
+    <blockquote>
+      <p><strong>NOTE</strong>: For learners working to get a certificate for this course (i.e. not auditing), please go through this exercise carefully and thoroughly it will be used for the graded assignment.</p>
+    </blockquote>
+    <h2>Pre-requisites</h2>
+    <p>You will need an IBM Cloud account to do this lab. If you have not created one already, click on this <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CC0100EN-SkillsNetwork/labs/IBMCloud_accountCreation/CreateIBMCloudAccount.md.html" target="_blank" rel="external">link</a> and follow the instructions to create an IBM Cloud account.</p>
+    <h4>Task 1: Create a Watson Discovery Resource</h4>
+    <ol>
+      <li>Login to (<a href="https://cloud.ibm.com/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">https://cloud.ibm.com</a>) with your credentials. Once you successfully login to IBM Cloud, you should see the dashboard. Click on the <em>Create resource</em> button.</li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/dashboard.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <ol start="2">
+      <li>
+        <p>You will land on the catalog page. Enter <strong>Discovery</strong> in the search field or find it in the AI category of the catalog and then <strong>click on that tile</strong>.</p>
+      </li>
+      <li>
+        <p>A page will offer you to create the service. Select <strong>London</strong> as the region. Change the name of the service or keep the default, if you wish. Verify that the Lite plan is selected, and then click Create.</p>
+      </li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <ol start="4">
+      <li>
+        <p>Read the details of the various plans offered to you, and then, <strong>with the free Lite plan selected, click Create.</strong></p>
+      </li>
+      <li>
+        <p>Now, Launch your service by clicking "Launch Watson Discovery".</p>
+      </li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.11.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <h4>Task 2: Setting up Your Collection</h4>
+    <ol>
+      <li>Click on "Upload your own data" to create your collection.</li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.12.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <ol start="2">
+      <li>You will be prompted to upgrade to the Advance plan, but for this exercise you only need the Lite plan, so you could set up with current plan.</li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.13.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <ol start="3">
+      <li>Since we are creating a collection for our documents, you can give your collection a name, and set the language of your documents to English.</li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.14.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <h4>Task 3: Uploading your Documents</h4>
+    <ol>
+      <li>For the purpose of this lab, we will be analyzing IBM's 2018 Annual Report. Download the report from the following link.</li>
+    </ol>
+    <p>&#x3C;a href = <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/data/IBM_Annual_Report_2018.pdf?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01%3EIBM_Annual_Report%5C_2018.pdf" target="_blank" rel="external">https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/data/IBM_Annual_Report_2018.pdf?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01>IBM_Annual_Report\_2018.pdf</a></p>
+    <ol start="2">
+      <li>Upload the IBM 2018 Annual Report onto Watson Discovery. Click on <strong>select document</strong> and choose the IBM 2018 Annual Report.</li>
+    </ol>
+    <blockquote>
+      <p><strong>Note:</strong> You can upload documents in the form of PDF, HTML, JSON, WORD, Excel, PowerPoint, PNG, TIFF, JPG. Any of the above filetypes for up to 50 megabytes.</p>
+    </blockquote>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.15.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <h4>Task 4: Analyzing your Document</h4>
+    <ol>
+      <li>
+        <p>After your document has finished processing, click on the "Schema" tag highlighted by the red box.</p>
+      </li>
+      <li>
+        <p>Click on document view.</p>
+      </li>
+      <li>
+        <p>Scroll down the document and you can see the sentiment level of each entity. In this case it is positive for IBM Watson, IBM Services, IBM Cloud, and AI. So this tool has improved my workflow by providing me the sentiment for IBM Watson, IBM Services, and IBM Cloud without someone reading through the whole document.</p>
+      </li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.16.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <h4>Task 5: Querying your Document</h4>
+    <ol>
+      <li>
+        <p>You can also extract important information from your document by using keywords. Click on the Search tab</p>
+      </li>
+      <li>
+        <p>Enter your keywords in the <strong>Search for documents</strong> section. In this case we are searching for "Intellectual Property", Watson Discovery has returned the result for "Intellectual Property" in our document.</p>
+      </li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.17.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <h3>Task 6: Save a screen shot</h3>
+    <blockquote>
+      <p>NOTE: This step is Optional!</p>
+    </blockquote>
+    <p>📷 Take and save a screenshot in .jpeg or .jpg format including the Watson Discovery sentiment analysis of the document. See a sample screenshot below.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.18.png" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <h4>Task 7: Share Your Results!</h4>
+    <p>Follow us on Twitter and send us some of your funniest and most interesting results you found with IBM Watson Visual Recognition!</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-AI0103EN-SkillsNetwork/labs/FinalAssignment-coursera/images/4.19.jpg" style="border:1px solid grey;margin-left=30px; margin-top=30px;margin-bottom=30px">
+    <p>&#x3C;a href=<a href="https://twitter.com/intent/tweet?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01%3EClick" target="_blank" rel="external">https://twitter.com/intent/tweet?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01>Click</a> here to share the above Tweet.</p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/ravahuja/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">Rav Ahuja</a></p>
+    <h2>Contributor(s)</h2>
+    <p><a href="https://linkedin.com/in/srishti-srivastava-343095a8?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkAI0103ENSkillsNetwork20648538-2022-01-01" target="_blank" rel="external">Srishti Srivastava</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Anamika</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td>2020-01-06</td>
+          <td>3.0</td>
+          <td>Shubham</td>
+          <td>Updated lab with new IBM Cloud screenshots</td>
+        </tr>
+        <tr>
+          <td>2021-06-08</td>
+          <td>3.1</td>
+          <td>Anamika</td>
+          <td>Updated lab with new IBM Cloud screenshots</td>
+        </tr>
+        <tr>
+          <td>2021-10-19</td>
+          <td>3.2</td>
+          <td>Srishti</td>
+          <td>Updated lab IBM Cloud pre-requisites</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
