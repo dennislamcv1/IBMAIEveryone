@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/IDSNlogo.png" width="200" height="200">
+    <h1>Welcome to the new experience on Watson Assistant</h1>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>Create a Banking Assistant.</li>
+    </ul>
+    <h2>Create a Banking Assistant</h2>
+    <p>Give your assistant the name <strong>Banking Chatbot</strong>. Choose the language it uses to respond to your customers, For this lab please select <strong>English</strong> and click on <strong>Create</strong>.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b1.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>You are on the <strong>Home</strong> page of your Assistant, you can also see the Assistant details here. Please click on the <strong>Actions</strong> represented by the <strong>message</strong> icon, see the below screenshot for reference.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b2.PNG" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>Now, you can create your first action, with actions you can help your customers accomplish their goals. Please click on <strong>Create a new action</strong> button.</p>
+    <blockquote>
+      <p>Note: An <strong>action</strong> represents a discrete outcome you want your assistant to be able to accomplish in response to a user's request. An action comprises the interaction between a customer and the assistant about a particular question or request.</p>
+    </blockquote>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b3.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <h3>Creating and editing an action</h3>
+    <p>When you create a new action, Watson Assistant prompts you for an example of the customer input that starts the action. This text is also used as the default name for the action, but you can edit the action name later.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b4.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>Type <em>I want to withdraw money</em> and then click <strong>Save</strong> to create the action.</p>
+    <blockquote>
+      <p>Note: Initially, you only need to specify one example of typical user input that starts the action. You can add more examples of user input later if you want to.</p>
+    </blockquote>
+    <p>After you create the action, the action editor opens. In the Step 1 is taken field, leave the default value of without conditions. This step is always required for any withdrawal.</p>
+    <p>In the Assistant says field, type <em>Withdraw from which account?</em>.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b5.PNG" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>Now, Click <strong>Define customer response</strong> and select <strong>Options</strong> because we will be asking the user to select from a list of predefined choices( Saving or Checking)</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b6.PNG" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>In the Option 1 field, type <strong>Savings</strong>. As soon as you enter a value for option 1, a field appears for options 2. Navigate to Option 2 and type <strong>Checking</strong>.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b7.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>Click <strong>Apply</strong> to save the customer response.</p>
+    <blockquote>
+      <p>Note: If the customer already specified the account type previously; for example, if the initial customer input was <em>I want to withdraw money from my <strong>savings</strong> account</em> then it won't present the options to you. But if you want the options to always be present you can do that by clicking on the <strong>Settings</strong> icon and selecting the <strong>Always ask for this information, regardless of the earlier message</strong>.</p>
+    </blockquote>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/new3.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/new2.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>Now, click <strong>New step</strong>. In the Step 2 is taken field, select with conditions. The Conditions section expands.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b8.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>By default, a condition is automatically created based on the action variable stored by the previous step (Withdraw from which account?). However, by default it is checking for a value of <strong>Savings</strong>.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b9.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>Now, click on the <strong>Add condition</strong> and select <strong>Checking</strong>. For both conditions <strong>Saving</strong> and <strong>Checking</strong> the assistant should ask <em>How much do you want to withdraw?</em>.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b10.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>Also, change from <strong>All</strong> option to <strong>Any</strong>. In the <strong>Assistant says</strong> field, type <em>How much do you want to withdraw?</em>.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b11.png" width="1400" style="border: solid 1px grey; padding-left=20px">
+    <p>Click <strong>Define customer response</strong>. This time we need the customer to specify a monetary amount, so select <strong>Currency</strong>. There are no more details you need to specify for a currency amount, so it is immediately added to the step.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/new1.png" width="700" style="border: solid 1px grey; padding-left=20px">
+    <h4>Finishing the action</h4>
+    <p>We now have all the information we need. For our example, we're not going to implement any real logic for making a withdrawal, but we can send a final message summing up what we're doing.</p>
+    <p>To do this, we need to insert action variables (representing customer responses from previous steps) into our response. At run time, these action variables will be replaced with the actual values supplied by the customer.</p>
+    <p>Click <strong>New step</strong>. Now we need to build a confirmation message that says <strong>"OK, we will withdraw <em>amount</em> from your <em>account_type</em> account.Thank you."</strong></p>
+    <p>To create this response, type the text of the message in the Assistant says field, but in place of the variable values, click the <strong>Insert a variable</strong> icon to insert references to action variables:</p>
+    <ul>
+      <li>For <strong>amount</strong>, select 2. <strong>How much do you want to withdraw?</strong>.</li>
+      <li>For <strong>account_type</strong>, select 1. <strong>Withdraw from which account?</strong>.</li>
+    </ul>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b12.png" width="1000" style="border: solid 1px grey; padding-left=20px">
+    <p>Because this is the last step in the action, you don't need to specify any customer response.</p>
+    <p>Please click on <strong>Preview</strong> button to verify your chatbot responses.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module8/images/b13.PNG" width="300" style="border: solid 1px grey; padding-left=20px">
+    <h3>Thank you for completing this lab.</h3>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/shubham-kumar-yadav-14378768/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Shubham Kumar Yadav</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2022-02-07</td>
+          <td>1.0</td>
+          <td>Shubham</td>
+          <td>Created Lab</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

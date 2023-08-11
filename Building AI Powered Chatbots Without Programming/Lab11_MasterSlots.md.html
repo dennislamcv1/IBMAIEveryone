@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/IDSNlogo.png" width="200" height="200">
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>How to handle follow-up questions and using slots.</li>
+    </ul>
+    <h2>Exercise 1: Follow-up questions and slots</h2>
+    <p>What we just did, besides learning about &#x3C;? input.text ?\is handle a follow-up question in a child node. This is a common pattern in which a parent node asks for information or clarification from the user and then one of its child nodes handles the response to the user.</p>
+    <p>If multiple follow up questions that are dependent on each other have to be asked by the chatbot, you'll end up with a cascade of child nodes, each asking the next question in the chain and having their child process it. This works but it's not ideal in terms of reasoning about or structuring your chatbot dialog flow.</p>
+    <p>Another shortcoming of this approach is that if the user asks a side question or just says, <em>wait a second</em>, instead of replying to what we asked, we'll end up losing our "position" in the dialog cascade and therefore end up treating the delayed answer as a brand new input, failing (most likely) to provide an appropriate response or collect the information we wanted.</p>
+    <p>There is a much better tool to help us collect information from the user and store it in context variables. Namely, I'm talking about <em>Slots</em>.</p>
+    <p>Let's see a practical example of how they work.</p>
+    <ol>
+      <li>
+        <p>
+          <strong>Define an intent called #flower_recommendations</strong> with at least 5
+          examples of ways people might ask for flower suggestions (e.g.,
+          Flower recommendations, flowers suggestions for my girlfriend, Which
+          flowers for Valentine's Day?, etc.). Watson will train on it as
+          usual.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Create a node called Flower Recommendations</strong> below the <em>Welcome</em>
+          node (as a peer, not a child node). <strong>Set the condition to
+#flower_recommendations</strong>. This is the node that will handle our
+          flower recommendations.
+        </p>
+      </li>
+      <li>
+        <p>
+          Click on the <em>Customize link</em> in the node and <strong>turn on the <em>Slots</em>
+feature.</strong> Leave <em>Prompt for everything</em> unchecked, as this option
+          is only useful if you have multiple slots/questions for the user and
+          you want to ask them all at once, rather than one at the time. Not a
+          common scenario. Finally, click on the <em>Apply</em> button.
+        </p>
+      </li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture.png" width="600">
+    <ol start="4">
+      <li>
+        This will automatically add one empty slot to our node. We use slots
+        to collect information from the user and store it in a context
+        variable.
+      </li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture1.PNG" width="600">
+    <p>The three key components of a slot are <em>Check for</em> (often an entity), <em>Save it as</em> (a context variable), and <em>If not present, ask</em> (an optional question to explicitly request the information if not already provided by the user in their question).</p>
+    <p>
+      <strong>Enter @occasion, $occasion, and What occasion are the flowers</strong>
+      <strong>for? respectively.</strong> You'll notice that the slot type changes from <em>Optional</em> to <em>Required</em> the moment we add a question.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture2.PNG" width="600">
+    <p>This node will be executed when its condition #flower_recommendations is detected. In other words, when the user is asking for flower suggestions. However, we want to know for which occasion the flowers are meant, so as to have an appropriate response for different occasions.</p>
+    <p>The slot will automatically assign <em>@occasion</em> to the <em>$occasion</em> context variable if the user- provided an entity value in their original question (e.g., <em>flowers suggestions for Valentine's Day</em>) and not ask the question in that case.</p>
+    <p>
+      If the <em>@occasion</em> entity is not detected, because the user simply
+      asked, <em>I'd like some flower recommendations</em> without specifying a
+      particular occasion, then the slot will ask <em>What occasion are the
+flowers for?</em> until the user replies with a relevant <em>@occasion</em>. The
+      slot is like a dog with a bone and will keep asking the question until
+      the user enters a valid occasion. So, if the user enters an irrelevant
+      reply, the slot will ask the question again.
+    </p>
+    <p>
+      By the way, a node can have multiple slots (through that <em>Add slot</em>
+      link), if multiple pieces of information need to be collected in the
+      same node. (Think about a restaurant reservation where you need
+      several bits and pieces of information from the user.)
+    </p>
+    <ol start="5">
+      <li>
+        <p>
+          After the slot does its job of clarifying with the user which
+          occasion we are talking about, it will store it in the <em>$occasion</em>
+          context variable. So, we can use it directly in the response section
+          of the same node, without the need to create a child node. We want
+          to provide a different answer for each occasion, so <strong>enable
+<em>Multiple conditioned responses</em> for the node</strong> from the <em>Customize</em>
+          link as well.
+        </p>
+      </li>
+      <li>
+        <p>
+          Now you can add different answers leveraging the content of the
+          context variable $occasion, as shown in the image below. Go ahead
+          and <strong>replicate it in your <em>Flower Recommendations</em> node</strong>, handling
+          at least a few occasions from <em>@occasion</em>. If you don't implement
+          them all, make sure you add a <em>true</em> fallback response for the
+          occasions you don't handle otherwise the user will receive no
+          response at all (a cardinal sin of chatbot design).
+        </p>
+      </li>
+    </ol>
+    <p>
+      For the generic response, you might recommend a mixed bouquet that is
+      versatile enough for different occasions. (Admittedly I know much more
+      about chatbots than flowers.)
+    </p>
+    <p>
+      The slot sets the context variable <em>$occasion</em> for you. Make sure you
+      use <em>$occasion</em> not <em>@occasion</em> in your multiple responses. This
+      way, if the user-specified the occasion earlier in the conversation,
+      we still have the memory of it and can reply appropriately.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture3.PNG" width="600">
+    <p>To save you some time, here are the responses you could use:</p>
+    <pre><code class="hljs language-vhdl"><span class="hljs-keyword">For</span> Christmas: I<span class="hljs-symbol">'d</span> go <span class="hljs-keyword">with</span> an <span class="hljs-keyword">all</span>-<span class="hljs-built_in">time</span> classic: a beautiful Red Poinsettia.
+</code></pre>
+    <pre><code class="hljs language-kotlin">For Birthdays: Opt <span class="hljs-keyword">for</span> a <span class="hljs-function"><span class="hljs-keyword">fun</span> bouquet of flowers, choosing a colorful</span>
+    one from &#x3C;a href=<span class="hljs-string">"https://example.org/catalog"</span>>our catalog&#x3C;/a>.
+</code></pre>
+    <pre><code class="hljs language-vbnet"><span class="hljs-keyword">For</span> Valentine<span class="hljs-comment">'s Day: You can never go wrong with a dozen red roses.</span>
+</code></pre>
+    <pre><code class="hljs language-awk">For Mothe<span class="hljs-string">r's Day: Moms are awesome and worth celebrating every day.
+Consider our &#x3C;a href="https://example.org/mothers-day">Mother'</span>s Day special bouquet&#x3C;/a>.
+</code></pre>
+    <pre><code class="hljs language-vbnet"><span class="hljs-keyword">For</span> the fallback, *<span class="hljs-literal">true</span>* <span class="hljs-keyword">case</span>: I<span class="hljs-comment">'d recommend a beautiful mixed bouquet from &#x3C;a href="https://example.org/catalog">our catalog&#x3C;/a>.</span>
+</code></pre>
+    <p><strong>Make sure you type the values exactly as they appear in the corresponding entity. For example,
+Valentine’s Day and not Valentine’s day or Valentines Day.</strong></p>
+    <ol start="7">
+      <li>Once you've added the responses above, open the <em>Try it out</em> panel, press the <em>Clear</em> link if needed, and <strong>test that this is actually working</strong>. For example, for your turns, try entering:</li>
+    </ol>
+    <p>(enter your name)</p>
+    <p>I'd like flower suggestions for Mother's Day</p>
+    <p>
+      You should get the response you specified (provided you added one for
+      the condition
+    </p>
+    <p>
+      $occasion == "Mother's Day"). Something similar to the
+      conversation shown in the image below.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture4.PNG" width="600">
+    <p>
+      As a reminder, we can normally use the : shorthand when working with
+      entity values that have no spaces. So $occasion:Birthday is
+      equivalent to explicitly saying $occasion == "Birthday" which means
+      <em>the value stored in $occasion is Birthday.</em> However, if the entity
+      value contains a space, as it's the case for @occasion:(Mother's
+      Day), you'll want to use the explicit form with the "equal equal"
+      symbols (e.g., $occasion == "Mother's Day").
+    </p>
+    <p>
+      Using a slot saved us from having to implement collecting <em>$occasion</em>
+      somewhere (e.g., in a passthrough node like we did for <em>Assign City</em>),
+      handling everything neatly in one node. With a required slot we can
+      count on <em>$occasion</em> existing as we formulate our responses.
+    </p>
+    <p>
+      Note that if you don't specify a question, the slot becomes optional,
+      which means that the entity value will be stored in the context
+      variable of your choice only if detected in the user input, but the
+      user won't be asked explicitly for it (since you didn't provide a
+      question).
+      If you add two required slots to a node, then the node will ask the
+      first question, store the information in your first context variable,
+      then proceed with asking the second question and storing that answer
+      in the second context variable you specified. In our case, we could
+      have used the second slot to ask for the <em>@relationship</em> entity.
+      Knowing both occasion and relationship would then allow us to come up
+      with really fine-tuned answers. In the responses, we would be able to
+      combine the two through logical AND and OR logical operators
+    </p>
+    <p>(e.g., $occasion:Birthday AND $relationship:wife).</p>
+    <p>
+      As mentioned, the classic example of multiple slots in a node is a
+      chatbot that makes a restaurant reservation.
+    </p>
+    <p>
+      Let's say that the information it needs to collect is the name, phone
+      number, date and time, and party size. The node can define a slot for
+      each of these values with their respective questions. This greatly
+      simplifies the dialog flow, as it reduces what would require several
+      nodes, to a single node that does all the work. It also ensures that
+      the answers are collected before the conversation proceeds further
+      which is crucial in a scenario where, say, you are making a
+      reservation.
+    </p>
+    <p>
+      To handle complex logic, you can use a combination of slots and child
+      nodes. Slots to collect the info, child node to do the processing of
+      that information according to your logic/preferences.
+    </p>
+    <p>
+      And since slots collect the information in context variables, we can
+      refer to their values throughout the conversation with the user. So,
+      in the example of the reservation, we might be able to confirm the
+      reservation as we wave the user goodbye.
+    </p>
+    <h2>Exercise 2: Reimplement Hours of Operation</h2>
+    <p>
+      Now that we know how to work with slots, we can greatly simplify our
+      <em>Hours of Operation</em> (and eventually the <em>Location Information</em>) node.
+    </p>
+    <ol>
+      <li>
+        <p><strong>Get rid of the <em>Assign City</em> node</strong> by clicking on the more options menu in that node, and then selecting <em>Delete</em>.</p>
+      </li>
+      <li>
+        <p><strong>Define a slot with the condition @location inside of <em>Hours of Operation.</em></strong> Assign the value to $city. Make the slot required, that is, explicitly ask the user For which city?, if they didn't specify it in their original question.</p>
+      </li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture5.PNG" width="600">
+    <ol start="3">
+      <li><strong>Enable <em>Multiple conditioned responses</em> for the node.</strong> Then <strong>move the response information from the <em>Our Locations</em> child node</strong> into these responses within <em>Hours of Operation</em>.</li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture9.PNG" width="600">
+    <p>
+      At this point, you will have the basic scenario for our locations
+      handled by the combination of the slot and the multiple conditioned
+      responses.
+    </p>
+    <ol start="4">
+      <li>
+        <p>
+          <strong>Delete the <em>Our Locations</em> and <em>No Location</em> child nodes</strong> below
+          <em>Hours of Operation</em>.
+        </p>
+      </li>
+      <li>
+        <p>
+          Since <em>Hours of Operation</em> now issues a response, we <strong>need to
+change the <em>And finally</em> action to <em>Wait for user</em> input</strong> so that
+          the conversation with the user can continue. In other words, we are
+          no longer going to use the child nodes to handle the interaction.
+        </p>
+      </li>
+    </ol>
+    <p>
+      If you test it with what are your hours of operation the chatbot will
+      ask your <em>For which city?</em> and if you reply with one of our cities
+      such as Vancouver, you'll get the right response.
+    </p>
+    <p>Great.</p>
+    <p>A small problem</p>
+    <p>
+      Having made the slot required, we have lost the ability to provide an
+      answer for the generic,
+    </p>
+    <p>
+      <em>what are your hours of operation?</em> question. The user will get the
+      reply, <em>For which city?</em>
+    </p>
+    <p>
+      This might be good enough and for some virtual assistants it might
+      even be required. But in our case, if the user doesn't know which
+      locations we have, we'll keep asking them the question as they
+      helplessly reply, <em>I don't know</em> or type in cities for which we don't
+      have a store.
+    </p>
+    <p>
+      That's not very user-friendly. One option we have is to remove the
+      question from the slot and add a fallback response in the node with
+      the condition set to true.
+    </p>
+    <p>
+      This way if the user provides a valid location in their question
+      expressing an <em>#hours_info</em> intent, the slot will detect it, assign
+      it to $city, and then respond with the relevant information for that
+      city. If they don't provide a location, the optional slot is skipped,
+      none of the $city responses apply, and we end up issuing the response
+      for the true case.
+    </p>
+    <p>
+      Doing this is equivalent to implementing what we had through the child
+      nodes.
+    </p>
+    <ol>
+      <li>
+        <p>Go ahead and <strong>delete the question from the slot</strong>.</p>
+      </li>
+      <li>
+        <p><strong>Add a true response</strong> with the default text we've been using:</p>
+      </li>
+    </ol>
+    <p>Our hours of operations are listed on &#x3C;a href="<a href="https://example.org/hours/%22%3E?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">https://example.org/hours/"></a> our Hours page&#x3C;/a></p>
+    <ol start="3">
+      <li>Test the chatbot to ensure it's working correctly. After clearing the conversation try the following:</li>
+    </ol>
+    <p>(Enter your name)</p>
+    <p>What are your hours of operation?</p>
+    <p>What are your hours of operation in Calgary?</p>
+    <p>It should still work as expected, giving the right answers for both.</p>
+    <p>
+      The image below shows what the <em>Hours of Operation</em> node should look
+      like.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture6.PNG" width="600">
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture7.PNG" width="600">
+    <h2>Exercise 3: Reimplement Location Information</h2>
+    <p><strong>Repeat the whole process in Exercise 2 for the <em>Location
+Information</em> node</strong> adjusting the responses accordingly.</p>
+    <p><strong>If you’d like to speed up the process, you could duplicate Hours of Operation, rename it to
+Location Information, then change the condition and responses to be about locations instead of
+hours, and finally delete the old Location Information node and its children.</strong></p>
+    <p>
+      Finally, test the <em>Location Information</em> node with the following text
+      (again, click <em>Clear</em> in between each test):
+    </p>
+    <p>(Enter your name) list of locations</p>
+    <p>what's the address of your Vancouver store? And when is it open?</p>
+    <p>
+      Did it work? It should. The image below shows what the dialog will
+      look like after all the changes have been correctly implemented.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Capture8.PNG" width="600">
+    <p>
+      If you are lost or encountered problems when testing the chatbot, you
+      can <a href="https://gist.githubusercontent.com/acangiano/90b296c88a25b952093eca5ac5353a6b/raw/186738dc49e13d775c399adbc6f5d1fab4e536ae/Flower-Shop-Skill.json?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">download the
+JSON</a>
+      <a href="https://gist.githubusercontent.com/acangiano/90b296c88a25b952093eca5ac5353a6b/raw/186738dc49e13d775c399adbc6f5d1fab4e536ae/Flower-Shop-Skill.json?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">file</a>
+      for the dialog skill we developed so far.
+    </p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/antoniocangiano/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Antonio Cangiano</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Srishti</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

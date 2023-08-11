@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/IDSNlogo.png" width="200" height="200">
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>Configuring Slot's Found and Not Found.</li>
+      <li>Enabling Digressions.</li>
+      <li>Understanding Handlers.</li>
+    </ul>
+    <h1>Exercise 1: Configuring Slot’s Found and Not Found</h1>
+    <p>
+      Slots are awesome. However, their stubborn nature (for required slots that specify a question)
+      can come across as rude if we are not careful. They keep the user to the task, which might be
+      fine if the user enters something irrelevant. It's definitely less okay if the user is asking a
+      legitimate side question, however.
+    </p>
+    <p>Consider the following interaction.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture1.PNG">
+    <p>
+      That's not great. It looks like we completely ignored the user's legitimate question. Notice also
+      that the chatbot understood what the user wanted (i.e., #hours_info was detected) but we
+      were still somewhat rude to them by not addressing their digression.
+    </p>
+    <h2>Configuring Found and Not Found responses</h2>
+    <p>
+      A first course of action we have is to use the Slot's <em>Found</em> and <em>Not Found</em> responses. These are
+      issued to the user before the node's own responses (in our case the actual flower suggestions
+      for the given occasion), so they allow us to interject a message before the node replies to the
+      user.
+    </p>
+    <p>Let's see them in action.</p>
+    <ol>
+      <li>Select the <em>Flower Recommendations</em> node and <strong>click on the gear icon next to</strong> <em><strong>Required</strong></em> **in our</li>
+    </ol>
+    <p>node's slot.**</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture2.PNG">
+    <ol start="2">
+      <li>Configure the slot by scrolling to the bottom of the dialog that appears, and by <strong>clicking</strong> **_Add a</li>
+    </ol>
+    <p>response_** <strong>below the</strong> <em><strong>Found</strong></em> <strong>section.</strong> Then <strong>enter true as the condition and Thank you,
+$name.</strong> as the response in the <em>Found</em> section.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture3.PNG">
+    <p>
+      This will ensure that when the slot receives the answer that it’s looking for (the occasion in this
+      case), we will always issue a thank you. If we wanted more refined control, we could add
+      different responses for different inputs from the user. In our case, we are happy with a
+      standard thank you response.
+    </p>
+    <ol start="3">
+      <li>Similarly, <strong>add a</strong> <em><strong>Not Found</strong></em> **response with a true condition that responds with, Sorry to</li>
+    </ol>
+    <p>
+      ask again, $name, but what occasion are the flowers for?** as shown in the image
+      below.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture4.PNG">
+    <p>Finally, click <em>Save</em>.</p>
+    <p>
+      Now, when we try the interaction again, we get a slightly more friendly interaction as shown
+      below.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture5.PNG">
+    <p>
+      That's better, maybe even good enough! We are apologizing when we have to ask again, and
+      we are thanking the user when they provide the answer we need. Since we have their name,
+      we sweetened the deal by including it in our messages.
+    </p>
+    <p>
+      But... we are still not answering the user's legitimate side question about hours of operation. To
+      properly handle that, we'll need <em>Digressions</em>.
+    </p>
+    <h1>Exercise 2: Enabling Digressions</h1>
+    <p>
+      Digressions are a feature that enables nodes to pass control to a different node while they are
+      processing a slot. What this means is that they allow the dialog to respond to a user's side
+      question, while they are in the middle of answering a slot.
+    </p>
+    <p>Let's see them in action.</p>
+    <ol>
+      <li>The first thing we need to do is ensure that the node containing the slot allows digressing</li>
+    </ol>
+    <p>
+      away from it. Select the <em>Flower Recommendations</em> node again and click on <em>Customize</em> , and
+      then its <em>Digressions</em> tab.
+    </p>
+    <p>
+      Here you'll want to expand <em>Digressions cannot go away from this node</em> by clicking on the > next
+      to it and <strong>turn on the option to allow digressions away from this node</strong>. Make sure you
+      click <em>Apply</em>.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture6.PNG">
+    <p>
+      With the digression away enabled in our node, we'll now be able to ask other questions in the
+      middle of answering the slot's question and get a proper response for them.
+    </p>
+    <p>
+      Technically, the nodes we digress into need to allow the digression, but that's the default
+      setting so we don't have to worry about it. (Should you ever need to prevent a node from being
+      digressed into, you can disable the <em>Digressions can come into this node</em> for that node.)
+    </p>
+    <p>Let's see how this altered our interaction.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture7.PNG">
+    <p>
+      Awesome. We fixed our original problem. However, you might notice that we don't come back
+      to the original question about flower recommendations.
+    </p>
+    <p>
+      This may or may not be what we want, depending on our chatbot. If we'd like to return, we'll
+      need to explicitly <strong>set</strong> <em><strong>Return after digression</strong></em> in the nodes we might digress to.
+    </p>
+    <p>
+      Go ahead and set the option for all three nodes with slots (i.e., <em>Hours of Operation</em> , <em>Location
+Information</em> , and <em>Flower Recommendations</em> ) as shown below. As a reminder, you can access the
+      <em>Digressions</em> section by clicking on <em>Customize</em> in each of these three nodes.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture8.PNG">
+    <p>Don't forget to click on <em>Apply</em> , and then test the interaction again, as shown in the image below.</p>
+    <p>Next, clear the conversation and test it again.</p>
+    <p>(enter your name)</p>
+    <p>I'd like flower recommendations</p>
+    <p>actually wait... how late are you open until tonight?</p>
+    <p>birthday</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture9.PNG">
+    <p>That's quite nice! Our chatbot interacts like a polite human would in such a conversation.</p>
+    <ol start="2">
+      <li>Technically, neither <em>Hours of Operation</em> nor <em>Location Information</em> have required slots, so we</li>
+    </ol>
+    <p>
+      don't need digressions. But in the future, we might decide to make their slots mandatory, so as
+      an exercise, there is no harm in enabling the digression for both nodes now. Go ahead
+      and <strong>enable</strong> <em><strong>Allow digressions away</strong></em> <strong>for both nodes.</strong>
+      3. <strong>Test a few conversations with your chatbot from the WordPress site</strong> you deployed to earlier
+      in the course.
+    </p>
+    <p>
+      <em>Found</em> and <em>Not Found</em> responses, along with <em>Digressions</em> , are useful tools to add further polish
+      to our chatbot and make it appear more human-like in its interactions with our users.
+    </p>
+    <h2>Handlers</h2>
+    <p>
+      We didn't need it in our chatbot, but sometimes we might want to execute certain actions if the
+      user responds to a slot in a certain way. For example, if we detect that the user is trying to
+      cancel a reservation, we want to escape/exit the slot rather than continue to pester the user for
+      details until they get frustrated and just leave the chat.
+    </p>
+    <p>
+      To skip a slot when a certain condition is met, you might use <em>Handlers</em> , accessible via
+      the <em>Manage Handlers</em> link in the slot section of your node. Handlers are evaluated even before
+      the <em>Not Found</em> response is issued.
+    </p>
+    <p>
+      For example, we could have the following response in an handler within a reservation chatbot.
+      Clicking on the gear icon offers us more detailed control.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture10.PNG">
+    <p>
+      This includes specifying that the handler should escape the current slot by skipping it when the
+      handler’s condition (e.g., a cancellation intent) is detected in response to the slot’s question.
+    </p>
+    <p>We can skip the current slot or skip all the slots in the node jumping straight to the response.</p>
+    <p>
+      In the theoretical scenario of a reservation cancelled mid-booking, we’d want to skip any
+      further question and would therefore opt to skip straight to response.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module7/images/Capture11.PNG">
+    <p>
+      The fallback/ <em>true</em> response for such a reservation node, will likely have some kind of message
+      inviting the user to reserve again at a later time or something equally user-friendly.
+    </p>
+    <p>
+      Again, this is not relevant to our chatbot, but I wanted you to know about the existence of
+      <em>Handlers</em> and why they might be useful at times.
+    </p>
+    <h2>Our chatbot</h2>
+    <p>
+      Congratulations on getting so far into the course. We're almost done. Meanwhile, if you need it
+      you can <a href="https://gist.githubusercontent.com/acangiano/0fdc6a99523278b83f867efd8cb82d06/raw/93ed0389e653b944edcd431f7b83e08389130d0f/Flower-Shop-Skill.json?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">download and import a JSON file</a> of the dialog skill we created so far.
+    </p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/antoniocangiano/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Antonio Cangiano</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Srishti</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module3/images/IDSNlogo.png" width="300">
+    <h4>Lab 4 - Create_Entities</h4>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>How to Create entities.</li>
+      <li>Use system entities.</li>
+    </ul>
+    <h1>Exercise 1: Creating entities</h1>
+    <p>Entities recognize and capture specific pieces of information in the user input. In our flower shop chain chatbot, people asking us about store hours and locations might provide a specific location.</p>
+    <p>In our fictitious Flower Shop chain, we have stores in Toronto, Montreal, Calgary, and Vancouver. So, when a user asks, Where is your Toronto store? we shouldn't ignore that extra bit of information so that we can take the location into account when formulating a response.</p>
+    <p>We can start by creating a @location entity for those cities.</p>
+    <ol>
+      <li>
+        <p><strong>In your skill, click on <em>Entities</em></strong> to enter the entities section.</p>
+      </li>
+      <li>
+        <p>Here, <strong>click the Create <em>entity</em> button</strong>. Choose @location as the entity name (note that the @ symbol is automatically added for you). Leave <em>Fuzzy Matching</em> enabled so that we can still detect the city name even if the user misspells it. Finally, <strong>click the <em>Create entity</em> button</strong>.</p>
+      </li>
+      <li>
+        <p>You'll be prompted to enter entity values and possible synonyms. <strong>Enter Montreal and then click <em>Add Value</em></strong> to add this entity value to our entity.</p>
+      </li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module3/images/1.png" alt="">
+    </p>
+    <p>Generally speaking, you won't need a synonym for cities, but you might include some if the city has common nicknames or if people refer to your store location by its street or neighbourhood in the city. Nearby small cities and towns can also act as synonyms. After all, if people are asking about your store in a nearby town, they might be happy with an answer for the nearest city.</p>
+    <p>Essentially, a synonym is not necessarily the dictionary definition of synonym. Though those are good candidates for synonyms as well when it makes sense. For example, we could have an entity called @relationship and the entity value @relationship:mother with mom as a synonym for that value. When the user enters a question including the word mom, Watson will detect @relationship:mother (the entity value for that synonym).</p>
+    <ol start="4">
+      <li><strong>Repeat the process</strong> for Calgary and Vancouver. Next, add Toronto as well. But for Toronto, add Warden Avenue as a synonym, as shown in the picture below. Likewise, Add Burnaby as a synonym for Vancouver.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module3/images/2.png" alt="">
+    </p>
+    <p>Click on the back-arrow in the top-left to go back to your skill.</p>
+    <p>Open the <em>Try it out</em> panel and wait for Watson to finish training. What happens if you try, hours of operation of your warden ave store in the <em>Try it out</em> panel?</p>
+    <p>Even though we haven't entered Warden Avenue spelled exactly as defined in the synonyms, fuzzy matching helps our chatbot detect the right entity value. It's worth noting that entity values can also have patterns, accessible from the <em>Synonyms</em> drop-down, as shown in the image below.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module3/images/Picture3.png" alt="">
+    </p>
+    <p>A pattern is an advanced feature that allows you to detect an entity value based not on a specific string (e.g., its synonym) but rather on a specific pattern like a properly formatted phone number, email address, or website address. If you are a programmer, it's worth noting that you specify your pattern as a Regular Expressions (e.g., ^(?([0-9]{3}))?[-.]?([0-9]{3})[-.]?([0-9]{4})$ to detect that a North American phone number was provided). If you are not a programmer, you can safely ignore this advanced feature. 😊</p>
+    <ol start="5">
+      <li>
+        <p>At any time you can click on an entity value to edit its name or synonym. Entities values are allowed to have spaces in them.</p>
+      </li>
+      <li>
+        <p>Use the <em>Try it out</em> panel to <strong>test out these entity values</strong>. Try entering, What are your hours of operation in Montreal and Where is your Burnaby store located? to see how Watson classifies that user question in terms of intents and entities.</p>
+      </li>
+    </ol>
+    <h1>Exercise 2: Take a look at system entities</h1>
+    <p>System entities allow us to easily detect common specific pieces of information like dates, times, numbers, currencies, etc. They are quite convenient when collecting information from the user.</p>
+    <p>For example, a restaurant reservation booking chatbot might use @sys-date, @sys-time, and @sys-number to detect the date, time, and party size for the reservation.</p>
+    <p>You'll <strong>find the currently available system entities under the <em>Entities</em> menu</strong> , as shown below.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module3/images/Picture5.png" alt="">
+    </p>
+    <p>If you ever need a system entity, you can simply turn it on by clicking on the toggle to the right of it.</p>
+    <p>In a previous version of this course, we employed the @sys-location and @sys-person entities, but they have since been deprecated.</p>
+    <p>Generally speaking, it's worth using a system entity if one fits the bill for what you are trying to do. But if it makes your life more difficult due to your specific requirements, you're better off creating your own custom entity as we did in Exercise 1.</p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/antoniocangiano/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Antonio Cangiano</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Srishti</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td>2021-01-08</td>
+          <td>3.0</td>
+          <td>Shubham</td>
+          <td>Updated Lab Instructions</td>
+        </tr>
+        <tr>
+          <td>2022-06-27</td>
+          <td>3.1</td>
+          <td>Ratima</td>
+          <td>Updated lab instructions and screenshots</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

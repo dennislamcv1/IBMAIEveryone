@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/IDSNlogo.png" width="300">
+    <h4>Lab 2: Create Intents</h4>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>Adding intents to your chatbot</li>
+    </ul>
+    <p>Lab 2: Create Intents</p>
+    <p>Now that we have an Assistant and its dialog skill, we are ready to start creating our chatbot. We'll start off with intents.</p>
+    <h1>Exercise 1: Enter into your Flower Shop Skill</h1>
+    <p>In order to add intents, we'll need to access our <em>Flower Shop Skill</em>.</p>
+    <ol>
+      <li><strong>Visit the</strong> <strong>Flower Shop Chatbot</strong> assistant page that you bookmarked** in Lab 1. (If you skipped that step, you can always find your assistant by clicking on the top-left icon within Watson Assistant, which will list all of your assistants in drop down menu.)</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/a.png" alt="">
+    </p>
+    <p>This will get you inside of your skill (as shown in the image below), where you'll be able to create intents, entities, and much more.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/view_dialog.png" alt="">
+    </p>
+    <p>By the way, if you don't know how to get back to the Watson Assistant interface altogether, you simply have to visit your dashboard (available at cloud.ibm.com), click on <em>Services</em>, and launch your Watson Assistant instance again.</p>
+    <h1>Exercise 2: Create, train, and test intents</h1>
+    <p>Now that we are inside of the <em>Intents</em> section of our skill, we can add intents in a few ways. Namely, we can add them manually, import them from a CSV file, or import them from a pre-made content catalog which includes industry-specific intents.</p>
+    <p>In this exercise, we'll focus on the most common way. That is, manually adding intents.</p>
+    <ol>
+      <li>From the Intents section of your dialog skill, <strong>click on the Create <em>intent</em> button</strong>. Here you'll be able to define an Intent name and a Description. What happens if you try to call the intent #greeting with a space in the name?</li>
+    </ol>
+    <p>That’s right! We can’t use spaces in intent names. So, we either need to use a single word for our intent or add underscore characters to separate multiple words when these are necessary to express what our intent is all about. In our case, we can get away with just calling the intent #greetings. Let’s do that.</p>
+    <ol start="2">
+      <li><strong>Define a #greetings intent</strong>. You can leave the description blank, as the name is descriptive enough, and then <strong>click the Create intent button</strong>. (Note: The # symbol is automatically prefixed for you, enter greetings in the field, not #greetings.)</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Picture3.png" alt="">
+    </p>
+    <ol start="3">
+      <li>You'll be prompted to create some user examples to train Watson on the concept of greetings. <strong>Enter hello then click <em>Add example</em>.</strong></li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Picture4.png" alt="">
+    </p>
+    <ol start="4">
+      <li><strong>Repeat the process for other greeting examples</strong>. Add:</li>
+    </ol>
+    <ul>
+      <li>Hi</li>
+      <li>Hey</li>
+      <li>good morning</li>
+      <li>good afternoon</li>
+    </ul>
+    <p>and so on. Make sure you add one example at the time.</p>
+    <p>
+      You don't need to go overboard, especially on such a simple intent, but you should always <strong>include at least 5 examples</strong>. Ideally more, particularly for more complex intents.
+      If you make a typo in one or two of your examples, don't worry. Keep the typos, as your users are likely to do the same mistakes, so this ends up training Watson on a more realistic input set. When you are done, you can <strong>click the back-arrow icon at the top</strong> to go back to your list of intents.
+    </p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Picture5.png" alt="">
+    </p>
+    <ol start="5">
+      <li>Once you click on the back-arrow icon, you'll be sent back to the <em>Intents</em> section where a list of your intents is shown. Right now, it's just #greetings so let's add more.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Picture6.png" alt="">
+    </p>
+    <p>By clicking on the Create intent button, repeat the process (step 2 to 4) to <strong>add the #thank_you and #goodbyes intents</strong> with at least 5 appropriate examples each</p>
+    <p>For #thank_you, you might use examples such as:</p>
+    <ul>
+      <li>thank you</li>
+      <li>thanks</li>
+      <li>thx</li>
+      <li>cheers</li>
+      <li>appreciate it</li>
+    </ul>
+    <p>For #goodbyes, you might want to use:</p>
+    <ul>
+      <li>goodbye</li>
+      <li>bye</li>
+      <li>see you</li>
+      <li>c ya</li>
+      <li>talk to you soon</li>
+    </ul>
+    <p>At this point, you'll have the most basic chit chat intents a chatbot needs to have. The more the merrier, of course, but this will do for now.</p>
+    <ol start="6">
+      <li>To test intents, <strong>click on the <em>Try it</em> button</strong> in the top right. A chat panel will appear where you can try user input and see how Watson analyses it and how our chatbot responds. We haven't provided responses yet (we'll do so in the module on <em>Dialog</em>) but we can still use it to test the classification of our intents. If you see a <em>Watson is training</em> message, please wait for Watson to finish training on your intent examples.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Picture7.png" alt="">
+    </p>
+    <ol start="7">
+      <li>Go ahead and <strong>try some greetings, thank you, and goodbye messages</strong> in the panel. Feel free to try both examples you provided (e.g., thank you) and expressions that you haven't provided as examples. For instance, try howdy and yo.</li>
+    </ol>
+    <p>Now, <strong>try it with kia ora</strong>, a common greeting in New Zealand, but not a globally adopted one. Chances are Watson will categorize it as <em>Irrelevant</em>. If Watson miscategorized one example, as it arguably did in this example, feel free to click on the V symbol next to the detected intent to <strong>assign a different intent to it</strong>. Go ahead and select #greetings for this example.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Picture8.png" alt="">
+    </p>
+    <p>This will add utterance (e.g., kia ora) as an example for the intent you picked (e.g., #greetings), further training Watson.</p>
+    <p>Once Watson is done training, if you test the same utterance again, Watson will correctly recognize the right intent this time.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Picture9.png" alt="">
+    </p>
+    <p>In the <em>Try it out</em> panel, <strong>what happens if you try a nonsensical input?</strong> Randomly smash on the keyboard if you have to. Personally, I produced the beautiful, cat-walking-on-the-keyboard string dljkasdlsa dasldj alskdkas ld. Create your own masterpiece. 😛</p>
+    <p>Watson will always try its hardest to match the user input to an existing intent, even if it's not a perfect match. But if its confidence level in the best matching intent is very low (below 20%), it will treat the input as <em>Irrelevant</em>, as it is likely not relevant to any of our intents.</p>
+    <p>In the module on the <em>Dialog</em> (i.e., Module 4), we'll find out how to deal with situations in which the user enters a question that is irrelevant or outside the scope of our chatbot.</p>
+    <p>To conclude this exercise, click on an existing intent of your choice in <em>Intents</em>, and <strong>add one more example</strong> to it. Then, select the checkmark next to it, and you'll be given the option to delete it (or even move it to a different intent).</p>
+    <p>Go ahead and <strong>delete that example</strong> as shown in the figure below.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Picture10.png" alt="">
+    </p>
+    <p>In the future, for more complex intents, you'll be able to add examples that originate from your real customers' conversations that they had with your virtual assistant (or your human customer care team) to better train Watson on your business-specific intents (also known as domain-specific intents).</p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/antoniocangiano/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Antonio Cangiano</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Anamika</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td>2021-01-08</td>
+          <td>3.0</td>
+          <td>Shubham</td>
+          <td>Updated Lab Instructions</td>
+        </tr>
+        <tr>
+          <td>2022-06-24</td>
+          <td>3.1</td>
+          <td>Ratima</td>
+          <td>Updated Screenshots as per new Watson Assistant</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

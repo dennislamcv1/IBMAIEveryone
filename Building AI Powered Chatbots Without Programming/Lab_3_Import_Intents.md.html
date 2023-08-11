@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/IDSNlogo.png" width="300">
+    <h4>Lab 3: Import Intents</h4>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>Importing intents to your chatbot</li>
+    </ul>
+    <h1>Exercise 1: Add intents from the Content Catalog</h1>
+    <p>IBM provides you with some ready-made intents that might be relevant to the scope of your chatbot. To see what's available, click on <strong>Content Catalog</strong> within your dialog skill.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/33.1.png" alt="">
+    </p>
+    <p>Choose one category of your choice (e.g., <em>Banking</em>) and then click on the <strong>Add to skill</strong> button next to it. Switch back to the <em>Intents</em> section (by clicking on Intents in top left of the page) and you should see a series of new intents relevant to common queries customers may have for the category of your choice.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Content%20Catalog.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>This isn't quite a pre-made chatbot but it's a nice starting point, that you can edit and adapt as needed. Feel free to try them out in the <em>Try it out</em> panel.</p>
+    <p>For example, if you added banking intents, try I lost my credit card in the <em>Try it out</em> panel. What intent is detected by Watson?</p>
+    <p>Make sure you let Watson finish training, first. If it's taking a long time, feel free to skip this test, and continue with the deletion below.</p>
+    <p>As usual, ignore the response that we get from the chatbot. It's simply because we haven't addressed responses yet. What we care about at this stage is that Watson correctly identifies and classifies our input.</p>
+    <p>We are not going to use banking intents for our flower shop chatbot so select the checkmarks next to them and press the <strong>Delete</strong> button to remove them. (Make sure you keep the chit chat intents we created.)</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/33.3.png" alt="">
+    </p>
+    <p>Confirm the deletion when prompted.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/33.4.png" alt="">
+    </p>
+    <p>You'll notice, in the screenshot on the previous page, how you were also given the option to export the selected intents. This is quite useful when reusing intents across different chatbots. Particularly when they are intents you created and not pre-made, as the ones in the Content Catalog will also be available in your new chatbot so there is no need to export and import them.</p>
+    <p>Go ahead and select our three chitchat intents and click on the <strong>Download</strong> button to download a CSV file containing our intents and examples.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/Download%20all%20intents.png" width="600" style="border: solid 1px grey; padding-left=20px">
+    <p>Open the file to see what it looks like.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/33.6.png" alt="">
+    </p>
+    <p>You'll notice that the structure is very simple. The example is in the first column, and the intent it corresponds to, is in the second column. If you open the CSV file in a text editor, you'll see its raw form.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/33.7.png" alt="">
+    </p>
+    <p>As you can see, it's very easy to create, modify, and delete intents, whether they were manually created or imported from the Content Catalog.</p>
+    <h1>Exercise 2: Import intents from a CSV file</h1>
+    <p>Just like we exported our intents to a CSV file, we can do the opposite and import intents from a CSV file. This format is particularly handy because it allows you to easily import intents (and their examples) from a spreadsheet. Let's see how this works in practice.</p>
+    <ol>
+      <li><a href="https://gist.githubusercontent.com/acangiano/a2541e51f191e9bba01c37733a11b116/raw/5f5053a83f85fff84afdc914769e48af16eb2d75/hours_and_location_intents.csv?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external"><strong>Download the CSV file</strong></a> I prepared for you or copy and paste the following in a hours_and_location_intents.csv file.</li>
+    </ol>
+    <p>When do you open,hours_info</p>
+    <p>When are you open,hours_info</p>
+    <p>What days are you closed on?,hours_info</p>
+    <p>When do you close,hours_info</p>
+    <p>Are you open on Christmas' Day?,hours_info</p>
+    <p>Are you open on Saturdays?,hours_info</p>
+    <p>What time are you open until?,hours_info</p>
+    <p>What are your hours of operation?,hours_info</p>
+    <p>What are your hours?,hours_info</p>
+    <p>Are you open on Sundays?,hours_info</p>
+    <p>what are you hours of operation in Toronto,hours_info</p>
+    <p>what are the hours of operation for your Montreal store,hours_info</p>
+    <p>list of your locations,location_info</p>
+    <p>Where are your stores?,location_info</p>
+    <p>Where are you physically located?,location_info</p>
+    <p>What are your locations?,location_info</p>
+    <p>List of location,location_info</p>
+    <p>Give me a list of locations,location_info</p>
+    <p>Locations in Canada,location_info</p>
+    <p>locations in America,location_info</p>
+    <p>what's the address of your Vancouver store?,location_info</p>
+    <p>What's the address of your Toronto store?,location_info</p>
+    <p>do you have a flower shop in Montreal,location_info</p>
+    <p>where is your Toronto store?,location_info</p>
+    <p>If clicking on the link simply opened the file in a new tab in your browser instead of downloading it, with that tab selected, press CRTL+S on Windows or ⌘+S on Mac to download it.</p>
+    <p>You'll notice that the structure of the file is very simple. Each line of the file has an example, comma separated by the intent we want to assign to it. Just like the chitchat examples you've seen in the previous page.</p>
+    <p>In our <em>Flower Shop Chatbot</em> we want to allow people to inquire about hours of operation and addresses of our flower shop stores, so this file includes examples for both #hours_info and #location_info.</p>
+    <p>Note that the # prefix is not included in the CSV file. It will be automatically added by Watson to the intent names when importing them.</p>
+    <ol start="2">
+      <li>From the <em>Intents</em> section of your skill, click on the <strong>Import intents</strong> icon next to the <em>Add intent</em> button.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/33.8.png" alt="">
+    </p>
+    <ol start="3">
+      <li>
+        <p>Select <strong>Choose a file</strong> from the window that appears and select the CSV file you downloaded on your local drive.</p>
+      </li>
+      <li>
+        <p>Click on the <strong>Import</strong> <strong>button</strong>. A report of what was imported will be shown as seen in the picture below. Click on <em>Done</em> to close the window. You now have successfully imported two new intents and their examples to train Watson.</p>
+      </li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module2/images/33.9.png" alt="">
+    </p>
+    <p>Take a moment to <strong>review the intents that were imported</strong> and the examples for each of them.</p>
+    <p>Next, take them for a spin in the <em>Try it out</em> panel. <strong>Ask questions like you naturally would</strong> to inquire about store hours or address information. Does it recognize the intents we imported well enough? Train Watson further by adding your own examples directly from the <em>Try it</em> panel when it fails to interpret them correctly.</p>
+    <p>At this point, our chatbot understands basic chitchat and it detects when a question is about hours of operation vs when it's about location.</p>
+    <p>Well done completing lab 3!</p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/antoniocangiano/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Antonio Cangiano</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Anamika</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td>2021-01-08</td>
+          <td>3.0</td>
+          <td>Srishti</td>
+          <td>Updated Lab</td>
+        </tr>
+        <tr>
+          <td>2022-06-27</td>
+          <td>3.1</td>
+          <td>Ratima</td>
+          <td>Updated screenshots</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

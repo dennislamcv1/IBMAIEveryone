@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module3/images/IDSNlogo.png" width="300">
+    <h4>Lab 5 : Import and Export Entities</h4>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>How to Import and export entities via CSV files.</li>
+    </ul>
+    <p>Lab 5: Import and Export Entities</p>
+    <h1>Exercise 1: Import and export entities via CSV files</h1>
+    <p>Importing and exporting entities via CSV files works very similarly to intents. When you select one or more entities by checking off the checkmarks next to them, you'll be offered the ability to export them to CSV. Likewise, you can import them by clicking the <em>Import entities</em> button next to <em>Create entity</em>.</p>
+    <p><strong>Click</strong> <a href="https://gist.githubusercontent.com/acangiano/f5dc5861cb6b4934ba69ff8f8debf914/raw/5a63b11f558c208dc33c17193302aec3a5fde98e/occasion_and_relationship_entities.csv?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external"><strong>on this link</strong></a> to download a CSV file with two new entities I prepared (i.e., @occasion and @relationship).</p>
+    <p>If clicking on the link opens the file in a new tab, ensure you save the file on your disk (press CRTL+S on Windows or ⌘+S on Mac) and then <strong>proceed with importing the new entities</strong> by clicking on the <em>Import entities</em> button in the <em>Entities</em> section.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module3/images/55.1.png" alt="">
+    </p>
+    <p>As usual, you'll be asked to select the CSV file you downloaded and then click <strong>Import</strong> <strong>.</strong></p>
+    <p>Upon successful upload and import of your entities, you should see a confirmation dialog similar to the one shown in the image below.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module3/images/55.2.png" alt="">
+    </p>
+    <p>Click <em>Done</em> and you should see two new entities. We'll use these two entities later on in the chatbot. For now, this will serve as a good exercise on importing entities.</p>
+    <p>The only real difference you need to be aware of, as far as importing goes, lies in the structure of the CSV file. For intents, it was example,intent. Entities can optionally have synonyms and patterns as well, so the structure is different.</p>
+    <p>If you open the CSV file I provided you with, you'll notice that each line has the entity name first, followed by a value, followed by a comma separated list of synonyms if any have been provided for that entity value. If a pattern is specified instead, it will also appear here.</p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/antoniocangiano/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Antonio Cangiano</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Srishti</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td>2021-01-08</td>
+          <td>3.0</td>
+          <td>Srishti</td>
+          <td>Updated Lab</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

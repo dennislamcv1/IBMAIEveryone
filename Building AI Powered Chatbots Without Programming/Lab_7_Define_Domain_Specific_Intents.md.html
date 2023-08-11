@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/IDSNlogo.png" width="300">
+    <h4>Lab 7 - Define Domain-Specific Intents</h4>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>How to define domain-specific intents.</li>
+    </ul>
+    <h1>Exercise 1: Respond to hours of operation requests</h1>
+    <p>Chit chat interactions are necessary to make our chatbot more pleasant and human-like. However, what makes the chatbot actually useful is its ability to answer domain-specific questions. That is, business-related questions.</p>
+    <p>We defined intents for people inquiring about hours of operation and addresses of our fictional florist chain and even created an entity to be able to provide location-specific answers. However, much like the chit chat intents, intents alone don't offer responses to customers. We'll need to create nodes to handle these two business-specific intents.</p>
+    <h2>Create the parent node</h2>
+    <p>We'll start by creating a node for hours of operation. Follow these steps:</p>
+    <ol>
+      <li>From the Dialog section, <strong>click on the <em>Add node</em> button</strong>. This will create an empty node just below the first node in the dialog.</li>
+    </ol>
+    <blockquote>
+      <p>If the node was created elsewhere in the dialog, you know by now how to move it just below the <em>Welcome</em> node (hint: find the option in the three dotted/more options menu for that node).</p>
+    </blockquote>
+    <ol start="2">
+      <li>
+        <p><strong>Set the node name to Hours of Operation</strong> and <strong>use #hours_info for the node condition</strong>. This will ensure that the node will be executed when the user is inquiring about shop hours.</p>
+      </li>
+      <li>
+        <p><strong>In the response, enter:</strong></p>
+      </li>
+    </ol>
+    <p><code>Our hours of operations are listed on &#x3C;a href="https://example.org/hours/">our Hours page&#x3C;/a>.</code></p>
+    <p>Notice how HTML code is allowed in responses, enabling us to provide more interactive and useful textual answers.</p>
+    <blockquote>
+      <p>Later, when you test this link, you'll be able to click on it and land on a sample page. If you were to get an error instead, consider replacing the double quotes with single quotes in the HTML above.</p>
+    </blockquote>
+    <p>Next, close the node and head over to the <em>Try it out</em> panel to test that it works by asking:</p>
+    <p>When is your Vancouver store open?</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture1.png" alt="">
+    </p>
+    <p>It should hit the <em>Hours of Operation</em> node and give you its response as shown in the image above.</p>
+    <p>This works and it provides a somewhat useful answer to the user (assuming we are pointing them to a page with the right information listed). However, it feels... not very smart.</p>
+    <p>After all, the user asked us about a specific location. We even detected it with the @location entity and then proceeded to ignore it, opting instead for a generic answer. We can do better than that! (Close the <em>Try it out</em> panel to gain some breathing room as we work on the dialog.)</p>
+    <p>In order to handle this case properly, we'll have to consider two possible scenarios. One in which one of our locations is specified and one in which the user asks about hours of operation in general without indicating a city or indicating a city in which we don't have a store.</p>
+    <p>In the early days of Watson Assistant, before more powerful features were introduced, this scenario would be handled with child nodes. So, we'll use child nodes here and I'll show you the more advanced alternatives later on in the course.</p>
+    <p>We'll use our current node to capture the hours of operation request, and then jump to the child nodes to decide how to handle the request on the basis of the specific location information that was or wasn't provided.</p>
+    <p>By the way, as the complexity of your dialog grows, you might have a hard time finding which node executed the response you're seeing during troubleshooting. To help you out, you can click on the map pin icon next to the response, and the current node will be highlighted for you.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture2.png" alt="">
+    </p>
+    <h2></h2>
+    <h2>Create the Our Locations child node</h2>
+    <ol>
+      <li><strong>Delete the response section from our <em>Hours of Operation</em> node</strong> by clicking on the trash bin icon in the <em>Assistant responds</em> section. We do that because we don't want this parent node to provide the answer. We'll let the child nodes decide what's the right response.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture3.png" alt="">
+    </p>
+    <ol start="2">
+      <li>Close the, now response-less, node. Using the more options menu for the <em>Hours of Operation</em> menu, , <strong>select the <em>Add child</em> node option</strong>, as shown in the screenshot below.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture4.png" alt="">
+    </p>
+    <p>This creates the first child node. We'll use it for the case of the user providing us a city for which we have a flower shop. So, go ahead and <strong>name it Our Locations</strong>.</p>
+    <ol start="3">
+      <li><strong>Set the condition to @location</strong>, as we want to execute this node only if the user is inquiring about hours of operation for one of our locations.</li>
+    </ol>
+    <p>As a reminder, a child node is only executed if the parent node's condition was true, since we typically skip or jump to child nodes from the parent node. Or in the much less common case of another node jumping to it. In our dialog, if we are executing this child node, we can be certain about two conditions regarding the user input:</p>
+    <ol>
+      <li>The intent will be #hours_info (because the parent node must have been executed to jump to this child node);</li>
+      <li>The input will contain the @location entity (since that's the condition for this node to be executed).</li>
+    </ol>
+    <p>Knowing this allows us to provide very specific responses.</p>
+    <p>(Okay, technically we haven't made the parent, <em>Hours of Operation</em>, jump to its first child, <em>Our Locations</em> yet. Fear not, we'll do so as soon as we are finished setting up this child node.)</p>
+    <ol start="4">
+      <li>We need a way to offer a different response for each city, so we need to enable <em>Multiple conditioned responses</em>. To do so,<strong>click on the <em>Customize</em> link</strong> within the <em>Our Locations</em> child node. Scroll all the way to the bottom and <strong>switch on <em>Multiple conditioned responses</em> and click <em>Apply</em></strong>. You'll notice that now we have the ability to attach a condition to each response, as shown below.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture5.png" alt="">
+    </p>
+    <ol start="5">
+      <li>Go ahead and <strong>create a series of responses, one for each city</strong>. In the <em>IF ASSISTANT RECOGNIZES</em> column you'll want to enter the specific city (e.g., @location:Toronto) and in the <em>RESPOND WITH</em> the hours of our fictional flower shop location (e.g., Our Toronto store is open Monday to Saturday from 9 am until 6 pm, except statutory holidays.)</li>
+    </ol>
+    <p><strong>Use Add <em>response</em> to add additional entries</strong> for each location we have. Feel free to come up with fictional hours of operation, as it is, after all, a fictional retail chain. The end result should be similar to the image below.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture6.png" alt="">
+    </p>
+    <p>It's worth noting that if the hours of operations where the same for all locations, we could have saved the trouble of switching to multiple conditioned responses and simply included @location in our response. (e.g., Our @location store is open Monday to Saturday from 9 am until 6 pm, except statutory holidays.)</p>
+    <p>This would automatically output the detected entity value back to the user in the response. So, when enquiring about Calgary, the user would receive the response Our Calgary store is open Monday to Saturday from 9 am until 6 pm, except statutory holidays. Of course, if stores have different hours of operation, we need to opt for the multiple response approach like we did here.</p>
+    <p><strong>Close the <em>Our Locations</em> node</strong> by clicking on X in the top corner.</p>
+    <h2>Skip the user input and evaluate the child nodes</h2>
+    <p>Now that we have our child node defined, we need to set the jump from its parent node.</p>
+    <p>In other words, we need to make sure that the parent node (i.e., <em>Hours of Operation</em>) hands off control to the child nodes. We'll jump to the first node, and if the condition for that node is false, we'll continue evaluating other child nodes (that we'll define in a moment) until one child node's condition is met and that child node is finally executed.</p>
+    <p><strong>Select the <em>Hours of Operation</em> node</strong> , and you'll notice that the <em>Then Assistant should</em> section is set to <em>Wait for reply</em>. This is not what we want. The user has already provided us with the question, and we haven't responded yet, since this node has no response.</p>
+    <p><strong>Change this section of <em>Hours of Operation</em> to <em>Skip user input</em></strong>. ** This will hand off the execution to the child nodes.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture7.png" alt="">
+    </p>
+    <p>Finally, close the node.</p>
+    <h2>Create the No Location child node</h2>
+    <p>We now have a way to handle users asking about hours of operation for a specific location of ours, however, we also need a child node to handle the case in which the user didn't specify a location (or for a location that we don't recognize).</p>
+    <ol>
+      <li><strong>Using the more options menu for the <em>Our Locations</em> node, select <em>Add node below</em> to create a new node</strong> This will create a node below <em>Our Locations</em>, and <em>Hours of Operation</em> will end up with two child nodes in total.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture8.png" alt="">
+    </p>
+    <ol start="2">
+      <li><strong>Call this node No Location</strong>. Set its condition to true.</li>
+    </ol>
+    <p>Here is why. When the user asks, “What are your hours of operation?” the #hours_info intent is detected, so when the dialog is evaluated, we enter the parent node <em>Hours of Operation</em>.</p>
+    <p>The <em>Our Location</em> child node is then first evaluated. We fail its condition because the user didn't specify any location, so the next child node is considered for execution.</p>
+    <p>Since the condition is set to true it will automatically be executed. This is exactly what we want to happen since at this point, we know the user wants to know the hours of operation, but no location of ours was provided. (If we left the condition empty, we'd get an error because no child node was able to match the user request.)</p>
+    <p>Note that the order of your nodes can matter. For example, placing the <em>No Location</em> node with its <em>true</em> condition above <em>Our Locations</em> would overshadow <em>Our Locations</em> and it would never be executed. Instead, <em>No Location</em> would be executed each time, which is not what we want if the user specified one our locations.</p>
+    <p>So, the order of our nodes didn't matter in the case of the chit chat nodes, but it matters here. The general rule is to always put specific cases above more generic cases, to avoid overshadowing the specific nodes with the more generic ones.</p>
+    <ol start="3">
+      <li>We need a generic answer for when no location is specified, so <strong>go ahead and reuse the message we had originally.</strong></li>
+    </ol>
+    <p><code>Our hours of operations are listed on &#x3C;a href="https://example.org/hours/">our Hours page&#x3C;/a>.</code></p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture9.png" alt="">
+    </p>
+    <ol start="4">
+      <li>Click on the <em>Try it</em> button, click <em>Clear</em>, then try the following inputs (one at a time):</li>
+    </ol>
+    <p>What are you hours of operation in Toronto?</p>
+    <p>What are your hours in Calgary?</p>
+    <p>What are your hours in Seattle?</p>
+    <p>What are your hours of operation?</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture10.png" alt="">
+    </p>
+    <p>You should see a proper response for each of these inputs. Not bad!</p>
+    <h1>Exercise 2: Respond to address requests</h1>
+    <p>Our little chatbot is getting more useful by the minute. We now need to handle location address requests. And guess what? It's no different in terms of how this works. We'll have a parent node and two children to distinguish both scenarios.</p>
+    <p>By the way, at any time, you can click on the arrow on the left of the <em>Hours of Operation</em> node to collapse or expand its children.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture11.png" alt="">
+    </p>
+    <p><strong>Collapse its child nodes now</strong> to gain some breathing room.</p>
+    <p>In the new parent and child nodes to handle address requests we'll need to change one condition (#location_info instead of #hours_info) and change the responses from hours of operation to actual addresses. Overall though, the structure is identical.</p>
+    <p>So, you could redo the process in Exercise 1 above, step by step, with those two minor adjustments, or we can be more efficient and simply duplicate <em>Hours of Operation</em> and change its copy to our needs.</p>
+    <p>We'll opt for this more efficient route:</p>
+    <ol>
+      <li><strong>Click on the more options menu for the <em>Hours of Operation</em> node and select <em>Duplicate</em></strong> to make a copy of <em>Hours of Operation</em> and its children.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture12.png" alt="">
+    </p>
+    <ol start="2">
+      <li>
+        <p><strong>Select the <em>Hours of Operation - copy1</em> node</strong> that was generated. <strong>Change its name to Location Information and its condition to #location_info</strong>. Its name will allow us to distinguish it from its remarkably similar sibling <em>Hours of Operation</em>, and the condition will ensure that Watson will only execute the node when the user asks for an address not hours of operation.</p>
+      </li>
+      <li>
+        <p>Next, we'll need to <strong>change the responses in two child nodes within the <em>Location Information</em> tree</strong>.</p>
+      </li>
+    </ol>
+    <p>Feel free to get creative but here is the type of response you should assign to each city in the <em>Location Information</em> > <em>Our Locations</em> child node</p>
+    <p>Our Toronto store is located at 123 Warden Avenue.</p>
+    <p>Add fictitious address for all the cities in that node.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module4/images/Picture13.png" alt="">
+    </p>
+    <p>Likewise, in the more generic Location Information > No Location child node replace the response to say:</p>
+    <p><code>Our store locations are listed on our site on the &#x3C;a href="https://example.org/stores">stores page&#x3C;/a>.</code></p>
+    <ol start="4">
+      <li>Open the <em>Try it out</em> panel, press <em>Clear</em> to start a new conversation, and <strong>test out a full conversation</strong> a user might have with our chatbot. Enter in succession the following input.</li>
+    </ol>
+    <p>hello</p>
+    <p>where are you stores located?</p>
+    <p>what are your hours of operations in Montreal?</p>
+    <p>thank you</p>
+    <p>bye</p>
+    <p>If you followed the instructions so far, you should have a pretty neat conversation. We can, of course, flesh out our chatbot much more, but if you got to this point, you have mastered the fundamentals of what you need to know to create something useful that cuts down of many common inquiries from your customers.</p>
+    <p>We'll soon see how to deploy the chatbot, and then tackle more advanced topics in the process of improving the chatbot's usefulness and apparent degree of intelligence.</p>
+    <h2>Are child nodes really necessary here?</h2>
+    <p>Technically speaking we don't need child nodes to handle the two scenarios we implemented above. We could simply add multiple conditional responses to the parent nodes and add responses for each of the cities and the catch-all true case, all from within the same node.</p>
+    <p>However, I wanted to show you how to work with child nodes, the importance of their ordering, and their flexibility. If the logic was more complex than just a generic response, having a dedicated child node to handle it would likely be a good idea, anyway. In some complex chatbots, you might even have child nodes that have their own child nodes!</p>
+    <p>Later in the course, we'll get rid of child nodes in favor of something called <em>Slots</em>. For now, please keep the two child nodes below both <em>Hours of Operation</em> and <em>Location Information</em>, as you defined them in this lab.</p>
+    <p>Congratulations on completing lab 7!</p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/antoniocangiano/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Antonio Cangiano</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Srishti</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td>2021-01-08</td>
+          <td>3.0</td>
+          <td>Shubham</td>
+          <td>Updated Lab Instructions</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

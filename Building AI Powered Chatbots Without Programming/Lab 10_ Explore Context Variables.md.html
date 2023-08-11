@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/IDSNlogo.png" width="200" height="200">
+    <h5>Lab 10: Explore Context Variables</h5>
+    <p>Objective for Exercise:</p>
+    <ul>
+      <li>How to use context variables.</li>
+    </ul>
+    <p>
+      By now you know the essentials of chatbot building. There are however more advanced
+      concepts that will enable you to create better and smarter chatbots.
+    </p>
+    <p>
+      I could list them all here at once, but I think it makes more sense to organically introduce them
+      as their need arises in the process of improving our chatbot.
+    </p>
+    <p>
+      Keep in mind that some of these concepts are tougher to get, particularly if you have no prior
+      programming experience. So, don't be discouraged if you don't fully get everything right away.
+    </p>
+    <p>
+      You can try things out, test to see if they work, and if they don't, try something else. That's why
+      the <em>Try it out</em> panel is so useful. It allows you to build chatbots one feature at the time. Stick
+      with it, and if you practice, you'll quickly become familiar with the advanced concepts as well.
+    </p>
+    <h2>Exercise 1: Remember the city with context variables</h2>
+    <p>
+      Whenever a user enters a new input, the intent and entities that are detected don't stick
+      around for the rest of the conversation. They exist at the moment, for the current input, and
+      are forgotten once the user types more questions.
+    </p>
+    <p>
+      This is generally fine, but it limits the chatbot's ability to appear smarter and remembering the
+      context of the conversation so far. For example, consider the following interaction.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/1.png" width="600">
+    <p>
+      A human customer care agent responding to the second question would have inferred that the
+      user is asking about the hours of operation for the city they just inquired about in the previous
+      question (i.e., Toronto).
+    </p>
+    <p>
+      However, the entity detected in the first input only lives for the duration of that input, so our
+      chatbot has no memory of it when the user enters a second question.
+    </p>
+    <p>
+      How can we store this information so that it’s available for the duration of the conversation?
+      Enter the concept of context variables, which allow us to do just that. As we go about collecting
+      information from the user, we can store it in the <strong>Context</strong> and then reuse it when it makes
+      sense.
+    </p>
+    <p>
+      One way to achieve this is to create a passthrough node that checks for the <em>@ location</em> entity
+      and sets it to the <em>$city</em> context variable if one is detected. It then jumps to the next node in the
+      dialog and hands off the execution to the rest of the nodes as if this node didn't exist.
+    </p>
+    <p>
+      Keep in mind that this is not necessarily the best approach, but it allows us to demonstrate a
+      couple of things:
+    </p>
+    <ol>
+      <li>
+        <p>The passthrough node technique which can come in handy in complex chatbots;</p>
+      </li>
+      <li>
+        <p>How context variables work.</p>
+      </li>
+    </ol>
+    <p>So, let's see how this would work in practice.</p>
+    <h3>Creating a passthrough node</h3>
+    <ol>
+      <li>In the <em>Dialog</em> section of your skill, select the <em>Welcome</em> node more options menu, and **click</li>
+    </ol>
+    <p>
+      Add node below** to create a sibling node underneath (as a reminder, all nodes must be
+      contained between the <em>Welcome</em> and the <em>Anything else</em> node).
+    </p>
+    <ol start="2">
+      <li>Call the node Assign City or something similar. **Set the condition to <em>@ location</em>. Delete the</li>
+    </ol>
+    <p>
+      response by clicking on the trash can icon in the response area**, as we don't want this node to
+      issue the response, only to set the variable in the context.
+    </p>
+    <ol start="3">
+      <li>Next click on the more options menu to the right of <em>Assistant responds</em> and **select *Open</li>
+    </ol>
+    <p>context editor***.</p>
+    <ol start="4">
+      <li>You'll be offered the ability to set one or more context variables whenever this node is</li>
+    </ol>
+    <p>
+      executed. <strong>Enter city for the variable name, and @ location for the value</strong>, as shown in the
+      figure below.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/2.png" width="600">
+    <p>
+      In the <em>Then assistant should</em> section we don't want to wait for the user input (they already gave
+      us input to process) we just want to jump to the rest of the nodes as if nothing happened. To do
+      so <strong>select <em>Jump to</em> from the drop-down list</strong>. You'll be asked to specify which node to jump to.
+      <strong>Select the first node just below the current one</strong>(i.e., Hours of Operation).
+    </p>
+    <p>
+      You'll then be asked to specify what to do after the jump. Wait for the user input? No. Respond
+      directly? No. <strong>Select is <em>If assistant recognizes (condition)</em></strong> so that this node can be evaluated as it
+      normally would.
+    </p>
+    <p>The <em>Assign City</em> now is now ready and can be closed.</p>
+    <p>
+      To recap, our node detects if there is a <em>@ location</em> specified in the input. If there is, we execute
+      the node which does nothing but set the context variable <em>$city</em> to the entity value (e.g.,
+      Vancouver).
+    </p>
+    <p>
+      Then we jump to evaluating the condition of the first node beneath us so that the flow is the
+      same as if the <em>Assign City</em> node wasn't there.
+    </p>
+    <p>
+      If that node's condition is successful it will be executed. If not, the nodes beneath will be
+      evaluated in their order of appearance. If none of the nodes satisfy the current input, we hit the
+      fallback <em>Anything else</em> node as usual.
+    </p>
+    <p>Your <em>Assign City</em> node should look as shown in the image below.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/3.png" width="600">
+    <ol start="5">
+      <li>Head over to the <em>Try it out panel</em>, click <em>Clear</em>, and ask **What are your hours of</li>
+    </ol>
+    <p>operation?**</p>
+    <p>
+      Click on <em>Manage Context</em> at the top of the panel to see the content of the <em>Context</em> (i.e., its
+      variables). The <em>$timezone</em> variable will already be set for you automatically, but because we
+      didn't specify a location, the <em>Assign City</em> node was not executed, and therefore no <em>$city</em> context
+      variable was set.
+    </p>
+    <ol start="6">
+      <li>Close the context and now **try entering What are your hours of operation in</li>
+    </ol>
+    <p>
+      Montreal?** in input. Next, click on <em>Manage Context</em> again. You'll notice that this time the <em>$city</em>
+      context variable has been set to the entity value (i.e., the string <em>"Montreal"</em>).
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/4.png" width="600">
+    <p>
+      We'll have access to this variable for the entire duration of the conversation with the user (or
+      until we set its value to something else). It's worth noting that pressing <em>Clear</em> in the <em>Try it out</em>
+      panel starts a new conversation, and so context variables are cleared as well. Go ahead and
+      close the context manager again.
+    </p>
+    <ol start="7">
+      <li>We want to make sure that <em>$city</em> variable is set whether it was specified along with a request</li>
+    </ol>
+    <p>
+      for hours information (as we already did) or for location addresses. So as a sanity check, <strong>try
+where is your Calgary store?</strong>. You should see that the city in the context now changes to
+      the string <em>"Calgary"</em>.
+    </p>
+    <ol start="8">
+      <li>Alright, we now store the city in our trusty <em>$city</em> context variable. To make use of it, we'll</li>
+    </ol>
+    <p>need to change our <em>Our Locations</em> child nodes under the <em>Hours of Operation and Location
+Information parent nodes</em>. We need to do so both in the condition and in the responses.</p>
+    <p>
+      There is an easy way to do this. <strong>Simply replace <em>@ location</em> with <em>$city</em> for every occurrence</strong> in
+      the two <em>Our Locations</em> child nodes as I did in the image below.
+    </p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/5.png" width="600">
+    <p><strong>Make sure you repeat this process for both <em>Our Locations</em> child nodes.</strong></p>
+    <pre><code class="hljs language-stata">Please <span class="hljs-keyword">note</span> that <span class="hljs-variable">$city</span>:Vancouver (<span class="hljs-keyword">no</span> spaces) is just a shorthand <span class="hljs-keyword">for</span> <span class="hljs-variable">$city</span> == <span class="hljs-string">"Vancouver"</span>.
+<span class="hljs-keyword">If</span> <span class="hljs-keyword">one</span> of our cities contained a space, we’<span class="hljs-keyword">d</span> need to <span class="hljs-keyword">use</span> the == comparison (<span class="hljs-keyword">e</span>.<span class="hljs-keyword">g</span>., <span class="hljs-variable">$city</span> ==
+<span class="hljs-string">"Quebec City"</span>).
+</code></pre>
+    <ol start="9">
+      <li>Next, test the original interaction again. As a reminder, you can save time by recalling</li>
+    </ol>
+    <p>previous input through the <em>Up</em> key on your keyboard, instead of retyping the same questions in.</p>
+    <p><strong>Enter, what's the address of your store in Toronto?</strong> followed by <strong>ok, what are its
+hours?</strong> You should now see a better response as shown in the image below!</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/6.png" width="600">
+    <p>The chatbot definitely comes across as smarter and it's more useful to the end-user.</p>
+    <ol start="10">
+      <li>But wait... now that we have the <em>$city</em> variable, can we use it to help our business even</li>
+    </ol>
+    <p>
+      further? It would be a nice touch to tell the user we hope they'll visit our store when they wave
+      us goodbye.
+    </p>
+    <p>
+      Simply <strong>change the <em>Goodbyes</em> node responses to include the <em>$city</em> variable.</strong> If it's set to a
+      specific city, it will be shown. If it's not set, it will not be displayed. So, go ahead and change the
+      first response for that node to:
+    </p>
+    <p>Nice talking to you today. We hope you visit our <em>$city</em> store.</p>
+    <p>If the <em>$city</em> is set to, say, <em>Calgary</em>, the response to the user will be <em>Nice talking to you today. We
+hope you visit our Calgary store</em>. If no city is set, simply <em>Nice talking to you today</em>. <em>We hope you
+visit our store</em>. A small, but still nice touch that invites our customers to shop with us.</p>
+    <p>Now replace the other two goodbyes with variations such as:</p>
+    <p>We hope you visit our $city store. Have a nice day.</p>
+    <p>Nice talking to you today. We hope to see you at our $city store.</p>
+    <p>
+      Go ahead and <strong>test that it works in the <em>Try it out</em> panel</strong>. Next, click on the <em>Clear</em> link at the top to
+      clear your variables and try typing bye now that no context variable is set. You should see that
+      the response still makes sense.
+    </p>
+    <pre><code class="hljs language-livecodeserver">As <span class="hljs-keyword">a</span> general rule, always <span class="hljs-built_in">clear</span> <span class="hljs-keyword">the</span> context whenever you are running <span class="hljs-keyword">a</span> <span class="hljs-built_in">new</span> test.
+</code></pre>
+    <p>Context variables are quite useful, as I hope this small example allowed to illustrate.</p>
+    <h3>Exercise 2: Collect the user name with<!--? input.text ?--></h3>
+    <p>
+      Sometimes you'll see chatbots asking for the user name to make the interaction more
+      personable. We know that we'd want to store it in a context variable once we acquire it so that
+      we can refer to it throughout the conversation to sound more friendly. However, how would
+      we go about collecting the name?
+    </p>
+    <p>
+      In the past, we could use a <em>@ sys-person</em> entity that would detect names for us. However, this
+      wasn’t a very robust solution and it failed to detect the beautiful variety of names in existence.
+      It is now deprecated and cannot use it. So we’ll have to roll our own solution.
+    </p>
+    <ol>
+      <li>Select the <em>Welcome</em> node. We need to change the prompt so that it asks for a name. **Enter,</li>
+    </ol>
+    <p>Hello, my name is Florence and I'm a chatbot. What name can I call you by?**</p>
+    <ol start="2">
+      <li><strong>We need a child node to actually collect the name</strong> (the answer to our question, in other</li>
+    </ol>
+    <p>words). <strong>So, go ahead and create a child node under <em>Welcome</em>.</strong> Call it Collect Name.</p>
+    <p>We want to always execute this child node after the prompt, so <strong>set its condition to true</strong>.</p>
+    <ol start="3">
+      <li>Watson stores the current user input in input.text. So open the context editor (from the</li>
+    </ol>
+    <p>more options icon to the right of <em>Assistant responds</em>) for this new node and <strong>set
+the <em>name</em> context variable to <!--? input.text ?-->.</strong></p>
+    <p>The reason why we need the special syntax is that we don't want to literally say <em>Nice to meet
+you input.text.</em> but rather we are asking Watson to give us the actual value of the variable.</p>
+    <p>Doing so will collect the user input and assign it to the name.</p>
+    <pre><code class="hljs language-livecodeserver">If you want <span class="hljs-built_in">to</span> always capitalize <span class="hljs-keyword">the</span> name, so that antonio is stored <span class="hljs-keyword">as</span> Antonio, you can use <span class="hljs-keyword">a</span>
+bit <span class="hljs-keyword">of</span> code <span class="hljs-keyword">and</span> <span class="hljs-built_in">replace</span> <span class="hljs-meta">&#x3C;?</span> input.<span class="hljs-keyword">text</span> <span class="hljs-meta">?></span> <span class="hljs-keyword">with</span>:
+
+             <span class="hljs-meta">&#x3C;?</span> input.<span class="hljs-keyword">text</span>.substring(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>).toUpperCase() + input.<span class="hljs-keyword">text</span>.substring(<span class="hljs-number">1</span>) <span class="hljs-meta">?></span>
+
+This will capitalize <span class="hljs-keyword">the</span> <span class="hljs-keyword">first</span> letter <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> user reply <span class="hljs-keyword">for</span> you. If you are <span class="hljs-keyword">not</span> <span class="hljs-keyword">a</span> programmer, don<span class="hljs-string">'t
+worry too much about the details. Simply know that it capitalizes the input text and you can
+copy and paste it whenever you have such a need in your chatbots.
+</span></code></pre>
+    <p>For the response, you can <strong>use the response below:</strong></p>
+    <p>
+      Nice to meet you, $name. How can I help you? You can ask me about our store
+      hours, locations, or flower recommendations.
+    </p>
+    <p>The image below shows what the node should look like.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/7.png" width="600">
+    <p>
+      Finally, test out a complete conversation with the chatbot entering these, one at the time (after
+      clicking <em>Clear</em> in the <em>Try it out</em> panel to start a brand new conversation:
+    </p>
+    <p>(enter your name after the prompt)</p>
+    <p>What are your hours of operation of your Toronto store?</p>
+    <p>Where is it?</p>
+    <p>Thank you</p>
+    <p>Goodbye</p>
+    <p>Pretty neat, right? If it worked, congratulations on completing Lab 10.</p>
+    <h6>Help! It didn't work.</h6>
+    <pre><code class="hljs language-kotlin">You can skip <span class="hljs-keyword">this</span> section <span class="hljs-keyword">if</span> the conversation above worked well <span class="hljs-keyword">for</span> your chatbot.
+</code></pre>
+    <p>
+      If the conversation above didn't work well for your chatbot, it's likely because some mistake (or
+      happy little accidents as Bob Ross would have called them) was made in the process of
+      following the instructions.
+    </p>
+    <p>
+      If that's the case, no worries, you can import <a href="https://gist.githubusercontent.com/acangiano/dd03853cc7edb66f0a1384c7e87f5999/raw/d2458a6742f24a5297dadc75a02d49fef3c9a4b9/flower-shop-skill.json?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">this JSON file</a>with the current chatbot we built so far. As usual, you might have to save the file if it opens up in your browser instead of
+      automatically downloading it (Ctrl+S on Windows and Command+S on Mac). Feel free to call it
+      Flower-Shop-Skill.json or something like that.
+    </p>
+    <p>You can then click on the <em>Dialog</em> section of your Watson Assistant instance, expand <em>Options</em> and click on <em>Upload/Download</em>.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Go%20to%20dialog.png" width="600">
+    <p>There you'll find a section to upload a JSON file with new dialog content which will replace the existing dialog content.</p>
+    <p>Upload the JSON file by drag and drop or selecting a file that you just downloaded (by clicking on <em>Drag and drop file here or click to select a file</em>) and then click <em>Upload</em>.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Drag%20and%20drop.png" width="600">
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Upload.png" width="600">
+    <p>A pop-up will appear, click <em>Upload and replace</em>. This enables you to replace the current dialog content with a different one.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-CB0103EN-SkillsNetwork/labs/Module6/images/Upload%20and%20replace.png" width="600">
+    <p>
+      Once the upload is done, you'll have the dialog content we developed so far linked to your assistant. A
+      successful notification will appear.
+    </p>
+    <p>Try the conversation again and this time it should work for you.</p>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/antoniocangiano/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkCB0103ENSkillsNetwork20718357-2022-01-01" target="_blank" rel="external">Antonio Cangiano</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-27</td>
+          <td>2.0</td>
+          <td>Srishti</td>
+          <td>Migrated Lab to Markdown and added to course repo in GitLab</td>
+        </tr>
+        <tr>
+          <td>2022-06-27</td>
+          <td>3.0</td>
+          <td>Ratima</td>
+          <td>Upadated instructions and screenshots</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
